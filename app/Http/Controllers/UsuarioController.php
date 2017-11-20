@@ -15,6 +15,7 @@ use Redirect;
 
 class UsuarioController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -46,12 +47,9 @@ class UsuarioController extends Controller
      */
     public function store(UserCreateRequest $request)
     {
-        User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => $request['password']
-            ]);
-        return redirect('/usuario')->with('message','store');
+        User::create($request->all());
+        Session::flash('message','Usuario Creado correctamente');
+        return Redirect::to('/usuario');
     }
 
     /**
@@ -90,7 +88,7 @@ class UsuarioController extends Controller
         $user->fill($request->all());
         $user->save();
 
-        Session::flash('message','Usuario edita correctamente');
+        Session::flash('message','Usuario Editado correctamente');
         return Redirect::to('/usuario');
     }
 
