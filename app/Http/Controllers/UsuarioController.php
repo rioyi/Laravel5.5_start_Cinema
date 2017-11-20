@@ -2,7 +2,10 @@
 
 namespace Cinema\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Cinema\Http\Requests;
+//Importando el Request para las validaciones
+use Cinema\Http\Requests\UserCreateRequest;
+use Cinema\Http\Requests\UserUpdateRequest;
 //Si especificamos el modelo con el namespace nos ahorramos llamar a cada rato en nuestros metodos.
 use Cinema\User;
 //para agregar los elemento de Session
@@ -19,7 +22,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::();
         return view('usuario.index',compact('users'));
     }
 
@@ -39,7 +42,7 @@ class UsuarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserCreateRequest $request)
     {
         User::create([
             'name' => $request['name'],
@@ -79,7 +82,7 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
         $user = User::find($id);
         $user->fill($request->all());
