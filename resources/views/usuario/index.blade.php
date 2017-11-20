@@ -26,5 +26,6 @@
 		@endforeach
 	</table>
 
+	{!!$users->render()!!}
 
 @endsection
