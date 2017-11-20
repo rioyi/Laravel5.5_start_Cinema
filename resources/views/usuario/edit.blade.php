@@ -3,7 +3,11 @@
 @section('content')
 	{!!Form::model($user,['route'=>['usuario.update',$user->id],'method'=>'PUT'])!!}
 		@include('usuario.forms.usuario')
-		{!!Form::submit('registrar',['class'=>'btn btn-primary'])!!}
+		{!!Form::submit('Editar',['class'=>'btn btn-primary'])!!}
+	{!! Form::close()!!}
+
+	{!!Form::open(['route'=>['usuario.destroy',$user->id],'method'=>'DELETE'])!!}
+		{!!Form::submit('Eliminar',['class'=>'btn btn-danger'])!!}
 	{!! Form::close()!!}
 
 @endsection
