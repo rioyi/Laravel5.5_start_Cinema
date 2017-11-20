@@ -22,6 +22,8 @@ class UsuarioController extends Controller
      */
     public function index()
     {
+        //para mostrar solo lo elemento eliminados con softdelete
+        //$users = User::onlyTrashed()->paginate(2);
         $users = User::paginate(2);
         return view('usuario.index',compact('users'));
     }
@@ -99,9 +101,11 @@ class UsuarioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        User::destroy($id);
-
+    {   //aqui destruimo el registro
+        //User::destroy($id);
+        //vamos hacer un poco de softdelete
+        $user = User::find($id);
+        $user->delete();
         Session::flash('message','Usuario ELIMINADO correctamente');
         return Redirect::to('/usuario');
     }
